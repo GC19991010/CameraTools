@@ -1,0 +1,366 @@
+[
+  {
+    "name": "MIVI",
+    "description": "小米相机框架日志组",
+    "type": "mask",
+    "mask_props": {
+      "mask_cmds": [
+        "adb root",
+        "adb remount",
+        "adb shell setprop persist.vendor.camera.mivi.loglevel 3",
+        "adb shell setprop persist.vendor.camera.mivi.groupsEnable {mask}"
+      ]
+    },
+    "options": [
+      {
+        "name": "Mia2LogGroupCore",
+        "bit_value": 1
+      },
+      {
+        "name": "Mia2LogGroupPlugin",
+        "bit_value": 2
+      },
+      {
+        "name": "Mia2LogGroupMeta",
+        "bit_value": 4
+      },
+      {
+        "name": "Mia2LogGroupService",
+        "bit_value": 8
+      },
+      {
+        "name": "Mia2LogGroupDebug",
+        "bit_value": 16
+      },
+      {
+        "name": "LogGroupCore",
+        "bit_value": 32
+      },
+      {
+        "name": "LogGroupHAL",
+        "bit_value": 64
+      },
+      {
+        "name": "LogGroupRT",
+        "bit_value": 128
+      },
+      {
+        "name": "Mia2LogGroupAlgorithm",
+        "bit_value": 256
+      },
+      {
+        "name": "Mia2LogGroupCallStack",
+        "bit_value": 512
+      },
+      {
+        "name": "LogGroupTBM",
+        "bit_value": 1024
+      },
+      {
+        "name": "Mia2LogGroupCoreRT",
+        "bit_value": 2048
+      },
+      {
+        "name": "Mia2LogGroupOffCam",
+        "bit_value": 4096
+      },
+      {
+        "name": "LogGroupSdk",
+        "bit_value": 8192
+      },
+      {
+        "name": "LogGroupPerf",
+        "bit_value": 16384
+      },
+      {
+        "name": "Mia2LogGroupPerf",
+        "bit_value": 32768
+      }
+    ]
+  },
+  {
+    "name": "Qcom_CAMX",
+    "description": "高通CAMX日志组",
+    "type": "mask",
+    "mask_props": {
+      "mask_cmds": [
+        "adb root",
+        "adb remount",
+        "adb shell setprop persist.vendor.camera.logInfoMask {mask}",
+        "adb shell setprop persist.vendor.camera.logCoreCfgMask {mask}",
+        "adb shell setprop persist.vendor.camera.logConfigMask {mask}",
+        "adb shell setprop persist.vendor.camera.logVerboseMask {mask}",
+        "adb shell setprop persist.vendor.camera.logDumpMask {mask}"
+      ]
+    },
+    "options": [
+      {
+        "name": "CamxLogGroupAFD",
+        "bit_value": 1
+      },
+      {
+        "name": "CamxLogGroupSensor",
+        "bit_value": 2
+      },
+      {
+        "name": "CamxLogGroupTracker",
+        "bit_value": 4
+      },
+      {
+        "name": "CamxLogGroupISP",
+        "bit_value": 8
+      },
+      {
+        "name": "CamxLogGroupPProc",
+        "bit_value": 16
+      },
+      {
+        "name": "CamxLogGroupMemMgr",
+        "bit_value": 32
+      },
+      {
+        "name": "CamxLogGroupPower",
+        "bit_value": 64
+      },
+      {
+        "name": "CamxLogGroupHAL",
+        "bit_value": 128
+      },
+      {
+        "name": "CamxLogGroupJPEG",
+        "bit_value": 256
+      },
+      {
+        "name": "CamxLogGroupStats",
+        "bit_value": 512
+      },
+      {
+        "name": "CamxLogGroupCSL",
+        "bit_value": 1024
+      },
+      {
+        "name": "CamxLogGroupApp",
+        "bit_value": 2048
+      },
+      {
+        "name": "CamxLogGroupUtils",
+        "bit_value": 4096
+      },
+      {
+        "name": "CamxLogGroupSync",
+        "bit_value": 8192
+      },
+      {
+        "name": "CamxLogGroupMemSpy",
+        "bit_value": 16384
+      },
+      {
+        "name": "CamxLogGroupFormat",
+        "bit_value": 32768
+      },
+      {
+        "name": "CamxLogGroupCore",
+        "bit_value": 65536
+      },
+      {
+        "name": "CamxLogGroupHWL",
+        "bit_value": 131072
+      },
+      {
+        "name": "CamxLogGroupChi",
+        "bit_value": 262144
+      },
+      {
+        "name": "CamxLogGroupDRQ",
+        "bit_value": 524288
+      },
+      {
+        "name": "CamxLogGroupFD",
+        "bit_value": 1048576
+      },
+      {
+        "name": "CamxLogGroupIQMod",
+        "bit_value": 2097152
+      },
+      {
+        "name": "CamxLogGroupLRME",
+        "bit_value": 4194304
+      },
+      {
+        "name": "CamxLogGroupNCS",
+        "bit_value": 8388608
+      },
+      {
+        "name": "CamxLogGroupMeta",
+        "bit_value": 16777216
+      },
+      {
+        "name": "CamxLogGroupAEC",
+        "bit_value": 33554432
+      },
+      {
+        "name": "CamxLogGroupAWB",
+        "bit_value": 67108864
+      },
+      {
+        "name": "CamxLogGroupAF",
+        "bit_value": 134217728
+      },
+      {
+        "name": "CamxLogGroupSWP",
+        "bit_value": 268435456
+      },
+      {
+        "name": "CamxLogGroupHist",
+        "bit_value": 536870912
+      },
+      {
+        "name": "CamxLogGroupBPS",
+        "bit_value": 1073741824
+      },
+      {
+        "name": "CamxLogGroupDebugData",
+        "bit_value": 2147483648
+      }
+    ]
+  },
+  {
+    "name": "Qcom_CHI",
+    "description": "高通CHI日志组",
+    "type": "mask",
+    "mask_props": {
+      "mask_cmds": [
+        "adb root",
+        "adb remount",
+        "adb shell setprop persist.vendor.camera.chiLogInfoMask {mask}",
+        "adb shell setprop persist.vendor.camera.chiLogConfigMask {mask}",
+        "adb shell setprop persist.vendor.camera.chiLogVerboseMask {mask}",
+        "adb shell setprop persist.vendor.camera.chiLogWarningMask {mask}"
+      ]
+    },
+    "options": [
+      {
+        "name": "ChxLogGroupCore",
+        "bit_value": 1
+      },
+      {
+        "name": "ChxLogGroupUsecase",
+        "bit_value": 2
+      },
+      {
+        "name": "ChxLogGroupF2Core",
+        "bit_value": 4
+      },
+      {
+        "name": "ChxLogGroupMCXCore",
+        "bit_value": 8
+      },
+      {
+        "name": "ChxLogGroupF2GS",
+        "bit_value": 16
+      },
+      {
+        "name": "ChxLogGroupF2Feature",
+        "bit_value": 32
+      },
+      {
+        "name": "ChxLogGroupF2Req",
+        "bit_value": 64
+      },
+      {
+        "name": "ChxLogGroupOffCam",
+        "bit_value": 128
+      },
+      {
+        "name": "ChxLogGroupSBM",
+        "bit_value": 256
+      },
+      {
+        "name": "ChxLogGroupTBM",
+        "bit_value": 512
+      },
+      {
+        "name": "ChxLogGroupUtils",
+        "bit_value": 1024
+      },
+      {
+        "name": "ChxLogGroupChiNode",
+        "bit_value": 2048
+      },
+      {
+        "name": "ChxLogGroupHMS",
+        "bit_value": 4096
+      },
+      {
+        "name": "ChxLogGroupChiMetadata",
+        "bit_value": 8192
+      },
+      {
+        "name": "ChxLogGroupProviderExt",
+        "bit_value": 16384
+      },
+      {
+        "name": "ChxLogGroupFD",
+        "bit_value": 32768
+      },
+      {
+        "name": "ChxLogGroupCrop",
+        "bit_value": 65536
+      },
+      {
+        "name": "ChxLogGroupOEMSensor",
+        "bit_value": 1048576
+      },
+      {
+        "name": "ChxLogGroupOEMActuator",
+        "bit_value": 2097152
+      },
+      {
+        "name": "ChxLogGroupOEMEEPROM",
+        "bit_value": 4194304
+      },
+      {
+        "name": "ChxLogGroupOEMOIS",
+        "bit_value": 8388608
+      }
+    ]
+  },
+  {
+    "name": "系统调试",
+    "description": "常用系统调试开关",
+    "type": "command",
+    "options": [
+      {
+        "name": "跳过开机引导",
+        "commands": [
+          "adb root",
+          "adb remount",
+          "adb wait-for-device",
+          "adb root",
+          "adb disable-verity",
+          "adb shell settings put secure user_setup_complete 1",
+          "adb shell settings put global device_provisioned 1",
+          "adb shell settings put global miui_permission_check 3",
+          "adb shell setprop persist.sys.uncheck_privapp_permission true",
+          "adb shell pm disable com.xiaomi.account",
+          "adb reboot"
+        ]
+      },
+      {
+        "name": "开启屏显",
+        "commands": [
+          "adb root",
+          "adb remount"
+        ]
+      },
+      {
+        "name": "开启MTK LOGD",
+        "commands": [
+          "adb root",
+          "adb remount",
+          "adb shell setprop persist.vendor.mtk.camera.log_level 3"
+        ]
+      }
+    ]
+  }
+]
