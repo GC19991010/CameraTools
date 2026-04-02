@@ -23,22 +23,94 @@
   --radius: 10px; --radius-sm: 6px;
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+[data-theme="dark"] {
+  --bg: #0d1117; --surface: #161b22; --surface-alt: #21262d;
+  --border: #30363d; --border-light: #21262d;
+  --accent: #58a6ff; --accent-hover: #79b8ff; --accent-light: #1f3a5f;
+  --accent-dim: rgba(88,166,255,0.15);
+  --success: #3fb950; --success-bg: #0d2818;
+  --warning: #d29922; --warning-bg: #2e1e06;
+  --danger: #f85149; --danger-bg: #3d1418;
+  --text: #e6edf3; --text-secondary: #8b949e; --text-muted: #6e7681; --text-faint: #484f58;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2);
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg); color: var(--text); min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .app { max-width: 960px; margin: 0 auto; padding: 24px 20px 48px; }
-.app-header { text-align: center; margin-bottom: 24px; }
+.app-header { text-align: center; margin-bottom: 24px; position: relative; }
 .app-header h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
 .app-header h1 span { color: var(--accent); }
 .app-header .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; }
+
+/* 主题切换器 - 三个按钮并排 */
+.theme-switcher {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+}
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.theme-btn:hover {
+  color: var(--text-secondary);
+  background: var(--accent-dim);
+}
+.theme-btn.active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.theme-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* 卡片 */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; transition: all var(--transition); }
 .card + .card { margin-top: 16px; }
 .card-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--border-light); background: var(--surface-alt); }
 .card-header .icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--accent); }
 .card-header h2 { font-size: 14px; font-weight: 600; color: var(--text); }
 .card-body { padding: 16px 20px; }
+
+/* 命令预览区域特殊样式 */
+.preview-card .card-header {
+  position: relative;
+}
+.preview-card .card-header .copy-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 按钮 */
 .btn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 8px 16px; border: none; border-radius: var(--radius-sm);
@@ -53,10 +125,13 @@ body {
 .btn-ghost:hover:not(:disabled) { background: var(--surface-alt); border-color: var(--text-faint); }
 .btn-accent { background: var(--accent-light); color: var(--accent); border: 1px solid transparent; }
 .btn-accent:hover:not(:disabled) { background: #dde4ff; }
+[data-theme="dark"] .btn-accent:hover:not(:disabled) { background: #2a3a5f; }
 .btn-export { background: var(--warning); color: #fff; }
 .btn-export:hover:not(:disabled) { background: #fbbf24; }
+[data-theme="dark"] .btn-export:hover:not(:disabled) { background: #c9860f; }
 .btn-danger { background: var(--danger-bg); color: var(--danger); }
 .btn-danger:hover:not(:disabled) { background: #fde2e2; }
+[data-theme="dark"] .btn-danger:hover:not(:disabled) { background: #5a1a1e; }
 .btn-sm { padding: 5px 12px; font-size: 11px; }
 .btn-copy {
   padding: 10px 28px; font-size: 13px; border-radius: 8px;
@@ -65,6 +140,7 @@ body {
 }
 .btn-copy:hover:not(:disabled) { box-shadow: 0 4px 16px rgba(16,185,129,0.35); }
 .btn-copy:disabled { background: #e0e4eb; color: var(--text-faint); box-shadow: none; }
+[data-theme="dark"] .btn-copy:disabled { background: #21262d; color: #484f58; }
 
 /* 安全提示 */
 .safety-tip {
@@ -93,11 +169,15 @@ body {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
   background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 3px;
 }
+[data-theme="dark"] .step code {
+  background: rgba(255,255,255,0.1);
+}
 
 /* Tabs */
 .tabs { display: flex; gap: 4px; padding: 4px; background: var(--surface-alt); border-radius: var(--radius); border: 1px solid var(--border); overflow-x: auto; }
 .tab { padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--text-muted); border: none; border-radius: var(--radius-sm); background: transparent; cursor: pointer; transition: all var(--transition); white-space: nowrap; font-family: inherit; }
 .tab:hover { color: var(--text-secondary); background: rgba(0,0,0,0.03); }
+[data-theme="dark"] .tab:hover { background: rgba(255,255,255,0.05); }
 .tab.active { background: var(--surface); color: var(--accent); box-shadow: var(--shadow-sm); font-weight: 600; }
 
 /* Options */
@@ -113,6 +193,7 @@ body {
 }
 .option-label:hover { border-color: var(--accent); background: var(--accent-dim); }
 .option-check { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--border); background: #fff; display: flex; align-items: center; justify-content: center; transition: all var(--transition); flex-shrink: 0; }
+[data-theme="dark"] .option-check { background: #161b22; }
 .option-check svg { width: 10px; height: 10px; opacity: 0; transform: scale(0.5); transition: all var(--transition); }
 .option-item input:checked + .option-label { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); font-weight: 600; }
 .option-item input:checked + .option-label .option-check { background: var(--accent); border-color: var(--accent); }
@@ -129,6 +210,7 @@ body {
   padding: 16px; background: #1a1d26; border-radius: var(--radius);
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
   line-height: 1.8; color: #c9cdd8; white-space: pre-wrap; word-break: break-all;
+  transition: all var(--transition);
 }
 .output-area .cmd-line { color: #e0e4ef; }
 .output-area .comment { color: #6b7280; }
@@ -141,6 +223,7 @@ body {
 .export-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .export-bar label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 .format-select { padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; font-family: inherit; color: var(--text); background: #fff; cursor: pointer; outline: none; }
+[data-theme="dark"] .format-select { background: #161b22; }
 .format-select:focus { border-color: var(--accent); }
 
 /* Config Manager */
@@ -186,6 +269,17 @@ body {
   .action-row > * { width: 100%; }
   .btn-copy { text-align: center; justify-content: center; }
   .steps { flex-direction: column; }
+  .theme-switcher { position: relative; margin-bottom: 16px; justify-content: center; }
+  .app-header { text-align: left; padding-right: 0; }
+  .preview-card .card-header {
+    flex-wrap: wrap;
+  }
+  .preview-card .card-header .copy-btn {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    width: 100%;
+  }
 }
 </style>
 </head>
@@ -195,10 +289,39 @@ body {
   <div class="app-header">
     <h1><span>CameraTools</span> Web</h1>
     <div class="subtitle">相机日志调试配置命令生成器 · 离线版 · By:CuSen</div>
+
+    <!-- 主题切换器 - 三个按钮并排 -->
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="light" onclick="setTheme('light')" title="浅色主题">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="theme-btn" data-theme="dark" onclick="setTheme('dark')" title="深色主题">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="theme-btn" data-theme="system" onclick="setTheme('system')" title="跟随系统">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- 使用说明 -->
-  <div class="card">
+  <!-- <div class="card">
     <div class="card-header">
       <div class="icon">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3"/><circle cx="8" cy="11" r="0.5" fill="currentColor"/></svg>
@@ -216,7 +339,7 @@ body {
         <div class="step"><span class="step-num">3</span>打开终端，粘贴并执行（确保已连接手机并开启 USB 调试）</div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- 配置管理 -->
   <div class="card">
@@ -259,12 +382,17 @@ body {
   </div>
 
   <!-- Output -->
-  <div class="card">
+  <div class="card preview-card">
     <div class="card-header">
       <div class="icon">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 6 7 9 12 4"/><rect x="1" y="1" width="14" height="14" rx="2"/></svg>
       </div>
       <h2>命令预览</h2>
+      <!-- 复制按钮移至命令预览右侧 -->
+      <button class="btn btn-copy copy-btn" id="copyBtn" onclick="copyCommands()" disabled>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="5" width="9" height="9" rx="1"/><path d="M3 11V3a2 2 0 0 1 2-2h6"/></svg>
+        复制命令
+      </button>
     </div>
     <div class="card-body">
       <div class="output-area" id="outputArea">
@@ -288,10 +416,6 @@ body {
             导出脚本
           </button>
         </div>
-        <button class="btn btn-copy" id="copyBtn" onclick="copyCommands()" disabled>
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="5" width="9" height="9" rx="1"/><path d="M3 11V3a2 2 0 0 1 2-2h6"/></svg>
-          复制命令
-        </button>
       </div>
     </div>
   </div>
@@ -458,15 +582,17 @@ const DEFAULT_CONFIG = [
     ]
   },
   {
-    name: "系统调试", description: "常用系统调试开关", type: "command",
+    name: "Custom", description: "Custom_command", type: "command",
     options: [
-      { name: "开启ADB日志", commands: ["adb shell setprop log.tag.ADB_DEBUG D"] }
+      { name: "通过json配置客制化命令", commands: ["adb shell setprop xxxxxxx"] }
     ]
   }
 ];
 
 const STORAGE_KEY = 'cameratools_config';
+const THEME_KEY = 'cameratools_theme';
 let CONFIG = [], activeTab = 0, currentCommands = [];
+let currentTheme = 'system';
 
 function loadConfig() {
   try {
@@ -477,7 +603,57 @@ function loadConfig() {
 }
 function saveConfig() { localStorage.setItem(STORAGE_KEY, JSON.stringify(CONFIG)); }
 
-function init() { loadConfig(); renderTabs(); renderTabContent(0); updateOutput(); }
+// 主题相关函数
+function loadTheme() {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) {
+    currentTheme = savedTheme;
+  } else {
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    currentTheme = systemDark ? 'dark' : 'light';
+  }
+  applyTheme(currentTheme);
+}
+
+function applyTheme(theme) {
+  if (theme === 'system') {
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', systemDark ? 'dark' : 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  // 更新按钮状态
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+  });
+
+  localStorage.setItem(THEME_KEY, theme);
+  currentTheme = theme;
+}
+
+function setTheme(theme) {
+  applyTheme(theme);
+}
+
+// 监听系统主题变化
+function setupSystemThemeListener() {
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', () => {
+    if (currentTheme === 'system') {
+      applyTheme('system');
+    }
+  });
+}
+
+function init() {
+  loadConfig();
+  loadTheme();
+  setupSystemThemeListener();
+  renderTabs();
+  renderTabContent(0);
+  updateOutput();
+}
 
 function renderTabs() {
   document.getElementById('tabBar').innerHTML = CONFIG.map((c,i) =>
@@ -536,14 +712,12 @@ function updateOutput() {
   area.innerHTML=h; btn.disabled=cmds.length===0;
 }
 
-// 复制命令到剪贴板
 function copyCommands() {
   if(!currentCommands.length) return;
   const text = currentCommands.join('\n');
   navigator.clipboard.writeText(text).then(()=>{
     showToast(`已复制 ${currentCommands.length} 条命令到剪贴板`, 'success');
   }).catch(()=>{
-    // fallback
     const ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
