@@ -582,6 +582,60 @@ const DEFAULT_CONFIG = [
     ]
   },
   {
+    name: "Qcom_KMD", description: "高通KMD日志组", type: "mask",
+    mask_props: {
+      mask_cmds: [
+        "adb shell \"echo {mask} > /sys/module/camera/parameters/debug_mdl\""
+      ]
+    },
+    options: [
+      { name: "CAM_CDM", bit_value: 1 },
+      { name: "CAM_CORE", bit_value: 2 },
+      { name: "CAM_CPAS", bit_value: 4 },
+      { name: "CAM_ISP", bit_value: 8 },
+      { name: "CAM_CRM", bit_value: 16 },
+      { name: "CAM_SENSOR", bit_value: 32 },
+      { name: "CAM_SMMU", bit_value: 64 },
+      { name: "CAM_SYNC", bit_value: 128 },
+      { name: "CAM_ICP", bit_value: 256 },
+      { name: "CAM_JPEG", bit_value: 512 },
+      { name: "CAM_FD", bit_value: 1024 },
+      { name: "CAM_LRME", bit_value: 2048 },
+      { name: "CAM_FLASH", bit_value: 4096 },
+      { name: "CAM_ACTUATOR", bit_value: 8192 },
+      { name: "CAM_CCI", bit_value: 16384 },
+      { name: "CAM_CSIPHY", bit_value: 32768 },
+      { name: "CAM_EEPROM", bit_value: 65536 },
+      { name: "CAM_UTIL", bit_value: 1048576 },
+      { name: "CAM_HFI", bit_value: 2097152 },
+      { name: "CAM_CTXT", bit_value: 4194304 },
+      { name: "CAM_OIS", bit_value: 8388608 },
+      { name: "CAM_RES", bit_value: 16777216 },
+      { name: "CAM_MEM", bit_value: 33554432 },
+      { name: "CAM_IRQ_CTRL", bit_value: 67108864 },
+      { name: "CAM_REQ", bit_value: 134217728 },
+      { name: "CAM_PERF", bit_value: 268435456 },
+      { name: "CAM_CUSTOM", bit_value: 536870912 },
+      { name: "CAM_PRESIL", bit_value: 1073741824 },
+      { name: "CAM_OPE", bit_value: 2147483648 },
+      { name: "CAM_IO_ACCESS", bit_value: 4294967296 },
+      { name: "CAM_SFE", bit_value: 8589934592 },
+      { name: "CAM_CRE", bit_value: 17179869184 },
+      { name: "CAM_PRESIL_CORE", bit_value: 34359738368 },
+      { name: "CAM_TPG", bit_value: 68719476736 },
+      { name: "CAM_DMA_FENCE", bit_value: 137438953472 },
+      { name: "CAM_SENSOR_UTIL", bit_value: 274877906944 },
+      { name: "CAM_SYNX", bit_value: 549755813888 },
+      { name: "CAM_VMRM", bit_value: 1099511627776 },
+      { name: "CAM_SENSOR_IO", bit_value: 2199023255552 },
+      { name: "CAM_ZOOM", bit_value: 4398046511104 },
+      { name: "MI_PARKLENS", bit_value: 2305843009213693952 },
+      { name: "MI_DEBUG", bit_value: 4611686018427387904 },
+      { name: "MI_PERF", bit_value: 9223372036854775808 },
+      { name: "CAM_DBG_MOD_MAX", bit_value: 18446744073709551616 }
+    ]
+  },
+  {
     name: "Custom", description: "Custom_command", type: "command",
     options: [
       { name: "通过json配置客制化命令", commands: ["adb shell setprop xxxxxxx"] }
