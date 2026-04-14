@@ -321,25 +321,25 @@ body {
   </div>
 
   <!-- 使用说明 -->
-  <!-- <div class="card">
+  <div class="card">
     <div class="card-header">
       <div class="icon">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3"/><circle cx="8" cy="11" r="0.5" fill="currentColor"/></svg>
       </div>
-      <h2>使用说明</h2>
+      <h2>本工具不定时更新，更新需刷新页面后点击恢复默认按钮</h2>
     </div>
-    <div class="card-body">
+    <!-- <div class="card-body">
       <div class="safety-tip">
         <span class="tip-icon">ℹ</span>
-        <span>本工具运行在浏览器中，无法直接执行 ADB 命令。请勾选所需选项后，<strong>点击"复制命令"</strong>按钮，然后在终端中粘贴执行。</span>
+        <span>本工具不定时更新，更新需点击恢复默认按钮</span>
       </div>
       <div class="steps">
         <div class="step"><span class="step-num">1</span>在下方标签页中勾选需要开启的日志选项</div>
         <div class="step"><span class="step-num">2</span>点击 <strong>"复制命令"</strong> 按钮</div>
         <div class="step"><span class="step-num">3</span>打开终端，粘贴并执行（确保已连接手机并开启 USB 调试）</div>
       </div>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
 
   <!-- 配置管理 -->
   <div class="card">
@@ -636,9 +636,38 @@ const DEFAULT_CONFIG = [
     ]
   },
   {
+    name: "Qcom_Dump", description: "高通Dump", type: "mask",
+    mask_props: {
+      mask_cmds: [
+        "adb shell setprop persist.vendor.camera.autoImageDump 1",
+        "adb shell setprop persist.vendor.camera.autoInputImageDumpMask {mask}",
+        "adb shell setprop persist.vendor.camera.autoImageDumpMask {mask}"
+      ]
+    },
+    options: [
+      { name: "IFE", bit_value: 1 },
+      { name: "IPE", bit_value: 2 },
+      { name: "BPS", bit_value: 4 },
+      { name: "JPEG", bit_value: 8 },
+      { name: "FDHw", bit_value: 16 },
+      { name: "LRME", bit_value: 32 },
+      { name: "RANSAC", bit_value: 64 },
+      { name: "all ChiNodes", bit_value: 128 },
+      { name: "CVP", bit_value: 256 },
+      { name: "TFE(*No Input*)", bit_value: 512 },
+      { name: "OPE", bit_value: 1024 },
+      { name: "QSAT", bit_value: 2048 },
+      { name: "ITOF", bit_value: 4096 },
+      { name: "MCTFE(*No Input*)", bit_value: 8192 },
+      { name: "OFE", bit_value: 16384 },
+      { name: "IFELITE(*No Input*)", bit_value: 32768 },
+      { name: "All other nodes", bit_value: 1073741824 }
+    ]
+  },
+  {
     name: "Custom", description: "Custom_command", type: "command",
     options: [
-      { name: "通过json配置客制化命令", commands: ["adb shell setprop xxxxxxx"] }
+      { name: "Dump EEprom", commands: ["adb shell setprop vendor.debug.camera.dumpSensorEEPROMData 1"] }
     ]
   }
 ];
